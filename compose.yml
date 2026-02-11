@@ -16,6 +16,9 @@
 
       SPRING_JPA_HIBERNATE_DDL_AUTO: update
       SPRING_JPA_SHOW_SQL: "true"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.services.marketplace-app.loadbalancer.server.port=8080"
     depends_on:
       db:
         condition: service_healthy
