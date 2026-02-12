@@ -6,7 +6,114 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
 </head>
 <body>
-<h1 th:text="${title}"></h1>
-<p>Página servida por Spring Boot</p>
+
+<header class="navbar">
+    <div class="container">
+        <h1 class="logo">ElectroStore Admin</h1>
+    </div>
+</header>
+
+<main class="container">
+
+    <!-- Formulario -->
+    <section class="card">
+        <h2>Agregar Producto</h2>
+
+        <form id="productoForm" class="form-grid">
+            <input type="text" id="nombre" placeholder="Nombre" required>
+            <input type="text" id="descripcion" placeholder="Descripción" required>
+            <input type="number" step="0.01" id="precio" placeholder="Precio" required>
+            <input type="text" id="imagen" placeholder="Imagen">
+            <input type="number" id="stock" placeholder="Stock disponible" required>
+
+            <div id="toast" class="toast hidden"></div>
+            <button type="submit" class="btn-primary">Guardar</button>
+        </form>
+    </section>
+
+    <!-- Tabla dinámica -->
+    <section class="card">
+        <h2>Inventario</h2>
+
+        <div class="products-grid">
+            <div class="product-card-glass" th:each="p : ${productos}">
+                <img th:src="@{'/images/' + ${p.imagen}}" alt="Producto">
+                <div class="product-info">
+                    <h3 th:text="${p.nombre}"></h3>
+                    <p class="price" th:text="'$' + ${p.precio}"></p>
+                    <span class="stock"
+                          th:classappend="${p.stock < 5} ? 'low-stock'">
+                      Stock: <span th:text="${p.stock}"></span>
+                </span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+</main>
+
+<script>
+    const form = document.getElementById("productoForm");
+    const toast = document.getElementById("toast");
+
+    function showToast(message, type = "success") {
+        toast.textContent = message;
+        toast.className = `toast show ${type}`;
+        setTimeout(() => toast.classList.remove("show"), 3000);
+    }
+
+    form.addEventListener("submit", async function (e) {
+        e.preventDefault();
+
+        const nombre = document.getElementById("nombre").value.trim();
+        const descripcion = document.getElementById("descripcion").value.trim();
+        const precio = parseFloat(document.getElementById("precio").value);
+        const stock = parseInt(document.getElementById("stock").value);
+
+        // Validaciones simples
+        if (!nombre || !descripcion) {
+            return showToast("Nombre y descripción son obligatorios", "error");
+        }
+
+        if (precio <= 0 || isNaN(precio)) {
+            return showToast("El precio debe ser mayor a 0", "error");
+        }
+
+        if (stock < 0 || isNaN(stock)) {
+            return showToast("El stock no puede ser negativo", "error");
+        }
+
+        const producto = {
+            nombre,
+            descripcion,
+            precio,
+            imagen: document.getElementById("imagen").value,
+            stock
+        };
+
+        try {
+            const response = await fetch("/api/productos", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(producto)
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                showToast(data.message, "success");
+                form.reset();
+                setTimeout(() => location.reload(), 1000);
+            } else {
+                showToast(data.message, "error");
+            }
+
+        } catch (error) {
+            showToast("Error al guardar el producto", "error");
+        }
+    });
+</script>
+
 </body>
 </html>

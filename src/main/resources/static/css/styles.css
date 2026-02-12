@@ -1,0 +1,193 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: #f5f5f7;
+    color: #1d1d1f;
+}
+
+.container {
+    width: 90%;
+    max-width: 1000px;
+    margin: auto;
+}
+
+.navbar {
+    background: #ffffff;
+    padding: 20px 0;
+    border-bottom: 1px solid #e5e5ea;
+    margin-bottom: 40px;
+}
+
+.logo {
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.card {
+    background: #ffffff;
+    padding: 30px;
+    border-radius: 18px;
+    margin-bottom: 40px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.03);
+}
+
+.card h2 {
+    margin-bottom: 25px;
+    font-weight: 500;
+}
+
+.form-grid {
+    display: grid;
+    gap: 15px;
+}
+
+input {
+    padding: 12px 15px;
+    border-radius: 10px;
+    border: 1px solid #d2d2d7;
+    font-size: 14px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #0071e3;
+}
+
+.btn-primary {
+    background-color: #0071e3;
+    color: white;
+    border: none;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #005bb5;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    text-align: left;
+    padding-bottom: 15px;
+    font-weight: 500;
+    font-size: 14px;
+    color: #6e6e73;
+}
+
+td {
+    padding: 12px 0;
+    border-top: 1px solid #f2f2f2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+    }
+
+    table {
+        font-size: 14px;
+    }
+}
+
+/* =========================
+   Liquid Glass Cards
+========================= */
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 30px;
+    margin-top: 20px;
+}
+
+.product-card-glass {
+    backdrop-filter: blur(20px);
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 24px;
+    padding: 20px;
+    box-shadow:
+            0 8px 32px rgba(0,0,0,0.08),
+            inset 0 0 0 1px rgba(255,255,255,0.4);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card-glass:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+}
+
+.product-card-glass img {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 15px;
+}
+
+.product-info h3 {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.price {
+    font-weight: 500;
+    margin-bottom: 6px;
+}
+
+.stock {
+    font-size: 13px;
+    padding: 6px 12px;
+    border-radius: 20px;
+    background: rgba(0, 122, 255, 0.15);
+    color: #0071e3;
+}
+
+.low-stock {
+    background: rgba(255, 59, 48, 0.15);
+    color: #ff3b30;
+}
+
+/* =========================
+   Apple Toast
+========================= */
+
+.toast {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    padding: 15px 25px;
+    border-radius: 20px;
+    backdrop-filter: blur(15px);
+    background: rgba(255,255,255,0.7);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition: all 0.3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.toast.success {
+    border-left: 4px solid #34c759;
+}
+
+.toast.error {
+    border-left: 4px solid #ff3b30;
+}
