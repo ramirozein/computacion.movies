@@ -37,7 +37,9 @@
 
         <div class="products-grid">
             <div class="product-card-glass" th:each="p : ${productos}">
-                <img th:src="@{'/images/' + ${p.imagen}}" alt="Producto">
+                <img th:src="${#strings.startsWith(p.imagen, 'http') ? p.imagen : '/images/' + p.imagen}"
+                     alt="Producto">
+
                 <div class="product-info">
                     <h3 th:text="${p.nombre}"></h3>
                     <p class="price" th:text="'$' + ${p.precio}"></p>
@@ -95,7 +97,7 @@
         try {
             const response = await fetch("/api/productos", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {"Content-Type": "application/json"},
                 body: JSON.stringify(producto)
             });
 
