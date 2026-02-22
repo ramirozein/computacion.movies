@@ -17,12 +17,3 @@
 * **Persistencia**: **Spring Data JPA** con soporte para entidades relacionales.
 * **Base de Datos**: Configuración flexible mediante `application.properties`.
 * **Frontend**: Integración con vistas y controladores web tradicionales.
-
-## Estructura del Proyecto
-
-```text
-src/main/java/computacion/movie/
-├── config/           # Configuraciones de Seguridad y Datos
-├── domain/           # Lógica de negocio y servicios
-├── persistence/      # Entidades (Pelicula, Usuario, Genero) y Repositorios
-└── web/              # Controladores de la API y Vistas
